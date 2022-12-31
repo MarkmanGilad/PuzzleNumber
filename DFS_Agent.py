@@ -11,6 +11,7 @@ class DFS_Agent:
         self.environment = environment
         self.path = []
         self.stop = False
+        self.maxLevel = 30
             
     def search_path (self, state, goal, visited, path):
         if state == goal:
@@ -19,16 +20,22 @@ class DFS_Agent:
             return
         if self.stop:
             return
+        
+        if len(path) == self.maxLevel:
+            print("max : ", len(visited))
+            return
     
         actions = self.environment.get_actions(state)
         for action in actions:
             new_state = self.environment.next_state(action, state)
-
+            if new_state  in visited:
+                print ("in") 
             if new_state not in visited and not self.stop:
                 visited.append(state)
                 path.append(action)
                 self.search_path(new_state, goal, visited, path)
                 path.pop()
+                
         
     def get_Action (self, event):
         if self.path is None or len(self.path) == 0:

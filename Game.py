@@ -16,7 +16,7 @@ def main ():
     pygame.display.set_caption('Puzzle')
 
     puzzle = Puzzle()
-    puzzle.shuffle(iteration=70)
+    puzzle.shuffle(iteration=30)
     goal = puzzle.make_goal_state(ROWS,COLS)
 
     graphics = Graphics(win)
