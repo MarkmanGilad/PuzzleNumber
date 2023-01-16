@@ -1,0 +1,25 @@
+BFS_Agent (start, goal):
+    visited = {start : None}    // dictionary
+    queue.insert(start)         // queue
+
+    while queue is not empty:
+        state = queue.pop
+        if state = goal:
+            return find_Path(goal, visited)
+
+        action = actions(state)
+        for action in actions:
+            new_state = new_state(action, state)
+            if new_state not in visited:
+                queue.insert(new_state)
+                visited[new_state] = action
+    
+    return return find_Path(goal, visited)
+
+find_Path (state, visited):
+    stack = null
+    while visited[state] not null:
+        action = visited[state]
+        stack.push(action)
+        state = new_state(action.inverse, state)
+    return stack
