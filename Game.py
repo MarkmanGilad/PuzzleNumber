@@ -7,6 +7,7 @@ from Puzzle import Puzzle
 from Human_Agent import Human_Agent
 from DFS_Agent import DFS_Agent
 from BFS_Agent import BFS_Agent
+from BFS_Agent2 import BFS_Agent2
 import time
 
 
@@ -17,13 +18,14 @@ def main ():
     pygame.display.set_caption('Puzzle')
 
     puzzle = Puzzle()
-    puzzle.shuffle(iteration=100)
+    puzzle.shuffle(iteration=30)
     goal = puzzle.make_goal_state(ROWS,COLS)
 
     graphics = Graphics(win)
     # agent = Human_Agent()
     # agent = DFS_Agent(puzzle, goal)
-    agent = BFS_Agent(puzzle, goal)
+    # agent = BFS_Agent(puzzle, goal)
+    agent = BFS_Agent2(puzzle, goal)
     run = True
     clock = pygame.time.Clock()
     graphics.draw(puzzle.state)
