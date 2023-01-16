@@ -17,3 +17,6 @@ class State:
     def copy (self):
         newBoard = np.copy(self.board)
         return State (newBoard)
+
+    def __hash__(self) -> int:
+        return hash(repr(self.board))

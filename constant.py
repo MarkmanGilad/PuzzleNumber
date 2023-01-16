@@ -1,7 +1,7 @@
 import pygame
 
 
-ROWS, COLS = 3, 3
+ROWS, COLS = 2, 3
 HEIGHT, WIDTH  = ROWS * 100, COLS * 100
 FRAME = 4
 SQUARE_SIZE = (WIDTH-FRAME*2)//COLS
