@@ -4,7 +4,7 @@ from State import State
 import pygame
 import time
 
-class BFS_Agent2:
+class Greedy_BFS_Agent:
     
     def __init__(self, environment:Puzzle, goal: State):
         self.state = environment.state
@@ -12,26 +12,42 @@ class BFS_Agent2:
         self.environment = environment
         self.path = []
 
-
-    def search_path (self, start, goal):
-        visited = {start : None}
-        queue = [start]
-
-        while queue:
-           
-            state = queue.pop()
+    def search_path (self, state:State, goal:State):
+        start_time = time.time()
+        visited = {}
+        heap = {}
+        state.action = None
+        state.g = 0
+        state.calc_h()
+        heap[state] = state.h
+    
+        while heap:
+            
+            state = min(heap, key= heap.get)
+            heap.pop(state)
+            visited[state] = state.action
+            print(state.h, ", ", state.f, ", ", state.g)   
+            
             if state == goal:
+                print("--- %s seconds for victory ---" % (time.time() - start_time))
                 print(len(visited))
                 return self.find_path(goal, visited)
             
             actions = self.environment.get_actions(state)
             for action in actions:
+                cost = 1
                 new_state = self.environment.next_state(action, state)
-                if new_state not in visited:
-                    queue.insert(0, new_state)
-                    visited[new_state] = action
-            
-        return self.find_path(visited)
+                if new_state in visited:
+                    continue
+                
+                if new_state not in heap:
+                    new_state.action = action
+                    new_state.g = state.g + cost
+                    new_state.calc_h()
+                    heap[new_state] = new_state.h
+
+                    
+        return []
 
     def find_path (self, state, visited):
         self.path = []
@@ -43,9 +59,7 @@ class BFS_Agent2:
 
     def get_Action (self, event):
         if self.path is None or len(self.path) == 0:
-            start_time = time.time()
             self.search_path(self.state, self.goal)
-            print("--- %s seconds BFS---" % (time.time() - start_time))
             print(self.path)
             print(len(self.path))
             

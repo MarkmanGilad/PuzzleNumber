@@ -8,7 +8,10 @@ import random
 class Puzzle:
 
     def __init__(self, state:State = None):
-        self.state = state
+        if state is None:
+            self.state = self.make_goal_state()
+        else:
+            self.state  = state
 
     def make_goal_state (self, rows=ROWS, cols=COLS):
         board = np.arange(rows*cols)
@@ -53,7 +56,7 @@ class Puzzle:
             case Action.RIGHT: target_col +=1
             case Action.LEFT : target_col -=1
         state.board[blank_row, blank_col], state.board[target_row, target_col] = state.board[target_row, target_col], state.board[blank_row, blank_col]
-        
+        state.blank_pos = target_row, target_col
 
     def next_state (self, action: Action, state: State):
         if not self.is_legal_action(action, state):
@@ -67,6 +70,7 @@ class Puzzle:
             case Action.RIGHT: target_col +=1
             case Action.LEFT : target_col -=1
         state.board[blank_row, blank_col], state.board[target_row, target_col] = state.board[target_row, target_col], state.board[blank_row, blank_col]
+        state.blank_pos = target_row, target_col
         return state
 
     def shuffle (self, state: State = None, iteration=70):

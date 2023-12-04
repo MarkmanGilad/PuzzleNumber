@@ -1,0 +1,84 @@
+
+A_star (state, goal):
+    state.action = None
+    state.g = 0;
+    state.calc_h()
+    state.f = state.g + state.h
+    heap[state] = state.f(), state.g
+    visited = {} 
+    
+    while heap is not empty:
+        state = heap.pop_Min(by state.f)
+        visited[state] = state.action
+        if state = goal:
+            return find_Path(goal, visited)
+                
+        actions = get_actions(state)
+        for action in actions:
+            cost = 1
+            new_state = new_state(action, state)
+            
+            if new_state in visited:
+                continue
+            new_state.action = action
+            new_state.g = state.g + cost
+            new_state.calc_h()
+            if new_state not in heap:
+                heap[new_state] = new_state.f(), new_state.g
+            if new_state in heap:
+                if heap[new_state].g > state.g + cost:
+                    heap[new_state] = new_state.f(), new_state.g
+        
+    return [] //no path
+
+
+Greedy_BFS_Agent :
+
+    state.action = None
+    heap[state] = state.calc_h()
+    visited = {} 
+    
+    while heap is not empty:
+        state = heap.pop_Min(by state.h)
+        visited[state] = state.action
+        if state = goal:
+            return find_Path(goal, visited)
+                
+        actions = get_actions(state)
+        for action in actions:
+            new_state = new_state(action, state)
+            if new_state in visited:
+                continue
+            new_state.action = action
+            
+            if new_state not in heap:
+                heap[new_state] = new_state.calc_h()
+            
+    return [] //no path
+
+
+BFS_Agent (start, goal):
+    visited = {start : None}    // dictionary
+    queue.insert(start)         // queue
+
+    while queue is not empty:
+        state = queue.pop
+        if state = goal:
+            return find_Path(goal, visited)
+
+        actions = actions(state)
+        for action in actions:
+            new_state = new_state(action, state)
+            if new_state not in visited:
+                queue.insert(new_state)
+                visited[new_state] = action
+    
+    return return find_Path(goal, visited)
+
+find_Path (state, visited):
+    stack = null
+    while visited[state] not null:
+        action = visited[state]
+        stack.push(action)
+        state = new_state(action.inverse, state)
+    return stack

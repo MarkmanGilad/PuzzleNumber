@@ -1,6 +1,5 @@
 import numpy as np
 import pygame
-from pyparsing import col
 from constant import *
 import State
 import time
@@ -16,8 +15,8 @@ class Graphics:
     def draw_all_pieces(self, state:State):
         board = state.board
         rows, cols = board.shape
-        for row in range(ROWS):
-            for col in range(COLS):
+        for row in range(rows):
+            for col in range(cols):
                 if board[row][col] !=0 :
                     self.draw_piece(state, (row, col))
             

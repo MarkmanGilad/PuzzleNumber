@@ -28,8 +28,6 @@ class DFS_Agent:
         actions = self.environment.get_actions(state)
         for action in actions:
             new_state = self.environment.next_state(action, state)
-            # if new_state in visited:
-            #     print ("in", len(visited))
             if new_state not in visited and not self.stop:
                 visited.append(new_state)
                 path.append(action)
